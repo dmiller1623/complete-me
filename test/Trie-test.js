@@ -29,11 +29,11 @@ describe('TRIE', () => {
 		it('should loop over the word passed in', () => {
 			// let node = new Node()
 			// trie.insert('hello')
-			trie.insert('shopping')
+			// trie.insert('shopping')
 			// console.log(letters)
-			trie.insert('hit')
-			trie.insert('hi')
-			trie.insert('he')
+			// trie.insert('hit')
+			// trie.insert('hi')
+			// trie.insert('he')
 			// trie.insert('oe')
 			// trie.insert('it')
 			// trie.insert('its')
@@ -42,8 +42,8 @@ describe('TRIE', () => {
 			// trie.insert('helpful')
 			// trie.insert('hemogloban')
 			// trie.insert('humungous')
-			// // trie.insert('shelf')
-			// trie.insert('wonderful')
+			// trie.insert('shelf')
+			// trie.insert('wonderful')// 
 			console.log(JSON.stringify(trie, null, 4))
 		})
 
@@ -54,9 +54,46 @@ describe('TRIE', () => {
 
 		})
 
-		it('should return a list of words that match the prefix given', () => {
-
-			trie.suggest('')
+		it('should have a suggest method', () => {
+			expect(trie).respondsTo('suggest')
 		})
+
+		// it('should take in a prefix', () => {
+		// 	expect
+		// })
+
+		it('should return an empty array in no words are in the prefix', () => {
+			trie.insert('help')
+			trie.insert('hello')
+			trie.insert('howdy')
+			expect(trie.suggest('hz')).to.deep.equal([])
+			console.log(JSON.stringify(trie, null, 4))
+
+		})
+
+		it('should return an array with matching prefix letters', () => {
+			trie.insert('help')
+			trie.insert('hello')
+			trie.insert('howdy')
+			expect(trie.suggest('he')).to.deep.equal(['help', 'hello'])
+
+		})
+
+		
+
+		// it.skip('should return a list of words that match the prefix given', () => {
+		// 	trie.insert('oe')
+		// 	trie.insert('it')
+		// 	trie.insert('its')
+		// 	trie.insert('help')
+		// 	trie.insert('hoping')
+		// 	trie.insert('helpful')
+		// 	trie.insert('hemogloban')
+		// 	trie.insert('humungous')
+		// 	trie.insert('shelf')
+		// 	trie.insert('wonderful')
+		// 	trie.suggest('oi')
+			
+		// })
 	
 });
