@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Node from '../lib/Node';
 
-describe.skip('NODE', () => {
+describe('NODE', () => {
     let node;
   
     beforeEach(() => {
@@ -13,11 +13,14 @@ describe.skip('NODE', () => {
     })
   
     it('should default next to null', () => {
-      expect(node.next).to.equal(null);
+      expect(node.value).to.equal(null);
     })
   
-    it('should take data and assign it to data prop', () => {
-      expect(node.data).to.equal('pizza');
+    it('should start off with no children', () => {
+      expect(node.children).to.deep.equal({});
+    })
+    it('should not start as the end of the word',() => {
+        expect(node.endOfWord).to.equal(false)
     })
   })
   
