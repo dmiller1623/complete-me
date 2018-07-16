@@ -1,12 +1,15 @@
 import Node from '../lib/Node';
 import Trie from '../lib/Trie';
 import { expect } from 'chai';
+import fs from 'fs';
+const text = "/usr/share/dict/words";
+const dictionary = fs.readFileSync(text).toString().trim().split('\n');
 
 describe('TRIE', () => {
 	let trie;
   
     beforeEach(() => {
-       trie = new Trie();
+			 trie = new Trie();
 		})
 		
 		it('should start the with the root set to a node with a value of null', () => {
@@ -26,74 +29,49 @@ describe('TRIE', () => {
 			expect(trie.wordCount).to.eq(3)
 		})
 
-		it('should loop over the word passed in', () => {
-			// let node = new Node()
-			// trie.insert('hello')
-			// trie.insert('shopping')
-			// console.log(letters)
-			// trie.insert('hit')
-			// trie.insert('hi')
-			// trie.insert('he')
-			// trie.insert('oe')
-			// trie.insert('it')
-			// trie.insert('its')
-			// trie.insert('help')
-			// trie.insert('hoping')
-			// trie.insert('helpful')
-			// trie.insert('hemogloban')
-			// trie.insert('humungous')
-			// trie.insert('shelf')
-			// trie.insert('wonderful')// 
+		it.only('should change the end of wrod property to true after inserting a full word', () => {
+			trie.insert('hello')
 			console.log(JSON.stringify(trie, null, 4))
-		})
-
-
-		it.skip('should assign currrent letter to the first letter to the word that is passed in', () => {
-			trie.insert('hello');
-			expect()
-
+			expect(trie.root.children.endOfWord).to.deep.eq(true)
+			
 		})
 
 		it('should have a suggest method', () => {
 			expect(trie).respondsTo('suggest')
 		})
 
-		// it('should take in a prefix', () => {
-		// 	expect
-		// })
-
 		it('should return an empty array in no words are in the prefix', () => {
 			trie.insert('help')
 			trie.insert('hello')
 			trie.insert('howdy')
 			expect(trie.suggest('hz')).to.deep.equal([])
-			console.log(JSON.stringify(trie, null, 4))
-
 		})
 
 		it('should return an array with matching prefix letters', () => {
 			trie.insert('help')
 			trie.insert('hello')
 			trie.insert('howdy')
+			trie.suggest('he')
 			expect(trie.suggest('he')).to.deep.equal(['help', 'hello'])
-
 		})
 
-		
+		it('should return a list of words that match the prefix given', () => {
+			trie.insert('oe')
+			trie.insert('it')
+			trie.insert('its')
+			trie.insert('help')
+			trie.insert('hoping')
+			trie.insert('helpful')
+			trie.suggest('oi')
+		})
 
-		// it.skip('should return a list of words that match the prefix given', () => {
-		// 	trie.insert('oe')
-		// 	trie.insert('it')
-		// 	trie.insert('its')
-		// 	trie.insert('help')
-		// 	trie.insert('hoping')
-		// 	trie.insert('helpful')
-		// 	trie.insert('hemogloban')
-		// 	trie.insert('humungous')
-		// 	trie.insert('shelf')
-		// 	trie.insert('wonderful')
-		// 	trie.suggest('oi')
-			
-		// })
+		it('should have populate method',() => {
+			expect(trie).respondsTo('populate')
+		})
+
+		it.skip('should populate the trie with words from the dictionary', () => {
+			trie.populate(dictionary);
+			expect(trie.wordCount).to.deep.equal(235886)
+		})
 	
 });
