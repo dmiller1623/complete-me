@@ -29,13 +29,6 @@ describe('TRIE', () => {
 			expect(trie.wordCount).to.eq(3)
 		})
 
-		it.only('should change the end of wrod property to true after inserting a full word', () => {
-			trie.insert('hello')
-			console.log(JSON.stringify(trie, null, 4))
-			expect(trie.root.children.endOfWord).to.deep.eq(true)
-			
-		})
-
 		it('should have a suggest method', () => {
 			expect(trie).respondsTo('suggest')
 		})
@@ -47,22 +40,12 @@ describe('TRIE', () => {
 			expect(trie.suggest('hz')).to.deep.equal([])
 		})
 
-		it('should return an array with matching prefix letters', () => {
+		it('should return an array of words with matching prefix letters', () => {
 			trie.insert('help')
 			trie.insert('hello')
 			trie.insert('howdy')
 			trie.suggest('he')
 			expect(trie.suggest('he')).to.deep.equal(['help', 'hello'])
-		})
-
-		it('should return a list of words that match the prefix given', () => {
-			trie.insert('oe')
-			trie.insert('it')
-			trie.insert('its')
-			trie.insert('help')
-			trie.insert('hoping')
-			trie.insert('helpful')
-			trie.suggest('oi')
 		})
 
 		it('should have populate method',() => {
@@ -73,5 +56,4 @@ describe('TRIE', () => {
 			trie.populate(dictionary);
 			expect(trie.wordCount).to.deep.equal(235886)
 		})
-	
 });
